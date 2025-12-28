@@ -1,5 +1,34 @@
+# ESP32 FreeRTOS Sensor Hub
 
-![Banner](https://github.com/parikshitpagare/parcel-tracking-rtos/assets/80714882/b583883e-9307-42d7-95ae-83d136bc14aa)
+This project integrates multiple sensors on ESP32 using FreeRTOS, building upon the open-source [Parcel Tracking RTOS](https://github.com/parikshitpagare/parcel-tracking-rtos) project.  
+It extends the original project with enhanced sensor support, improved task scheduling, and on-device & web monitoring features.
+
+## Features
+
+### Sensor Enhancements
+- Integrated vibration and temperature sensors with threshold-based alerts.
+- Activity logging for better monitoring and historical data tracking.
+- Improved data accuracy and system reliability through refined sensor handling.
+
+### Display & Monitoring
+- Dynamic multi-page OLED display supporting temperature, vibration, and GPS data.
+- Toggle between pages for better on-device monitoring.
+
+### FreeRTOS Task Management
+- Optimized task scheduling and queue management.
+- Concurrent execution of sensor readings, data transmission, and display updates.
+
+### Web Dashboard
+- Historical data analytics with graphs showing trends over time.
+- Real-time monitoring of sensor readings remotely.
+
+### Alerts & Indicators
+- Enhanced alert system with RGB LED indicators for vibration and temperature thresholds.
+
+## Note
+This project is based on the Parcel Tracking RTOS by Parikshit Pagare. Modifications and enhancements have been added to support sensor hub functionality on ESP32.
+
+
 
 <p align="center">
    <img src="https://img.shields.io/badge/ESPRESSIF-ESP32-E7352C?style=for-the-badge&logo=espressif&logoColor=white" >
@@ -12,6 +41,8 @@
 
 <p align="center">
 Parcel tracking and monitoring system developed on ESP32 microcontroller using FreeRTOS that can track location, sense vibration and monitor temperature. The system transmits data via GPRS to a web server for displaying real time updates on a website.
+This project integrates multiple sensor modules on ESP32 using FreeRTOS.  
+It builds upon the open-source [Parcel Tracking RTOS](https://github.com/parikshitpagare/parcel-tracking-rtos) project.  
 </p>
 
 <br>
@@ -24,14 +55,14 @@ Parcel tracking and monitoring system developed on ESP32 microcontroller using F
 
 # About
 
-- A system is developed that can be used by a logistic company to track the exact location during transport of sensitive goods and also monitor the environment on a continuous basis in real time.
+- A system is developed that can be used by a logistics company to track the exact location during transport of sensitive goods and also monitor the environment on a continuous basis in real time.
   
 - For monitoring the environment and visualizing the data collected from all the sensors, a website is developed and deployed on a server. 
   
-- The web server receives the data periodically from the GSM module and the data is displayed on the website.
+- The web server receives the data periodically from the GSM module, and the data is displayed on the website.
 
-- A dynamic website is implemented where a user can view updated data without the need to refresh the page. The user can see real time graphical updates as well as the previous data received
-for better understanding of the conditions.
+- A dynamic website is implemented where a user can view updated data without the need to refresh the page. The user can see real-time graphical updates, as well as the previous data received
+for a better understanding of the conditions.
 
 # Features
 
@@ -39,39 +70,39 @@ for better understanding of the conditions.
 - Temperature sensing using DHT11 sensor
 - Vibration intensity sensing using ADXL335 accelerometer
 - Activity monitoring on OLED display
-- Dedicated Website for real time visual updates
+- Dedicated Website for real-time visual updates
 - Wireless data transfer to Web Server using SIM800L GSM module
 
 # Proposed System and Overview
 
-The project implementation requires a combination of hardware and software which is developed separately.
+The project implementation requires a combination of hardware and software, which is developed separately.
 
-The implementation is divided in two categories,
+The implementation is divided into two categories,
 
 - Embedded System
 - Web Development
 
 ## Embedded System
 
-The Embedded system is based on a 32-bit high performance microcontroller which is the
-brain of the system. For performing all the tasks simultaneously, Real Time Operating System (RTOS)
+The embedded system is based on a 32-bit high-performance microcontroller, which is the
+brain of the system. For performing all the tasks simultaneously, a Real Time Operating System (RTOS)
 is running on top of the bare metal microcontroller. The tasks are implemented as follows,
 
 <p align="center">
 	<img src="https://github.com/parikshitpagare/parcel-tracking-rtos/assets/80714882/230a8215-18b8-4757-a96c-3a3f6fe07222" width="80%" height="80%">
 </p>
 
-- For temperature monitoring a digital temperature sensor is integrated with one of the GPIO pins of the microcontroller.
+- For temperature monitoring, a digital temperature sensor is integrated with one of the GPIO pins of the microcontroller.
 
 - For sensing vibration a 3-axis accelerometer is integrated with ADC pins of the microcontroller which can compute the intensity of vibration in X, Y and Z axis.
 
-- To get an exact location, a GNSS module is used which can acquire and track multiple satellite systems like GPS, IRNSS, GLONASS, BeiDou, Galileo and QZSS. The integration with microcontroller is done using UART communication protocol.
+- To get an exact location, a GNSS module is used, which can acquire and track multiple satellite systems like GPS, IRNSS, GLONASS, BeiDou, Galileo, and QZSS. The integration with the microcontroller is done using the UART communication protocol.
 
-- To transmit the data collected from above sensors to a web server, a GSM module is integrated using the UART communication protocol. The data is sent to the web server wirelessly via GPRS.
+- To transmit the data collected from the above sensors to a web server, a GSM module is integrated using the UART communication protocol. The data is sent to the web server wirelessly via GPRS.
 
-- To get visual updates, a small OLED display is integrated with the microcontroller using I2C communication protocol.
+- To get visual updates, a small OLED display is integrated with the microcontroller using the I2C communication protocol.
 
-- A RGB led is also used to indicate the status of the system.
+- An RGB LED is also used to indicate the status of the system.
 
 
 ## Web Development
