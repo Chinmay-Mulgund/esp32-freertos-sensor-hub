@@ -33,7 +33,6 @@ This project is based on the Parcel Tracking RTOS by Parikshit Pagare. Modificat
 <p align="center">
    <img src="https://img.shields.io/badge/ESPRESSIF-ESP32-E7352C?style=for-the-badge&logo=espressif&logoColor=white" >
    <img src="https://img.shields.io/badge/FreeRTOS-4bbb4f?style=for-the-badge">
-   <img src="https://img.shields.io/badge/APACHE2-D22128?style=for-the-badge&logo=apache&logoColor=white"">
    <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"">
    <img src="https://img.shields.io/badge/MYSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"">
    <img src="https://img.shields.io/badge/LICENSE-MIT-green?style=for-the-badge" >
@@ -194,86 +193,6 @@ Certain libraries are required for proper functioning of the microcontroller and
 
 - But there is a limitation of current that can be drawn from the microcontroller. To tackle this problem, two **18650 Li-Ion batteries** coupled with a **AP62301 5V 2A buck converter** is implemented.
 
-# Web Development Requirements
-
-## Hardware
-
-For the website to be online and available, it is required to be hosted on a server. There are two options that can be implemented.
-
-- Shared Hosting (GoDaddy, Hostinger, etc.).
-- Virtual Private Server (VPS) which is provided as ‘Infrastructure as a Service (IaaS)’ by many vendors (Digital Ocean, Linode, etc.).
-
-The website for this project is deployed on a VPS provided by Digital Ocean.
-
-## Web Application Stack
-
-The VPS is a bare-metal server with an operating system installed on top of it. For deploying the website following packages are installed,
-
-<table>
-  <tr>
-    <th>Package</th>
-    <th>Use</th>
-  </tr>
-  <tr>
-    <td>Ubuntu 22.04 (LTS) x64</td>
-    <td>Operating system</td>
-  </tr>
-  <tr>
-    <td>Apache2</td>
-    <td>Web server</td>
-  </tr>
-  <tr>
-    <td>PHP</td>
-    <td>Server-side scripting engine</td>
-  </tr>
-  <tr>
-    <td>MySQL</td>
-    <td>RDBMS to store all the incoming data</td>
-  </tr>
-  <tr>
-    <td>phpMyAdmin</td>
-    <td>GUI to handle the administration of MySQL over the web</td>
-  </tr>
-</table>
-
-This stack is commonly known as the LAMP Stack where,
-
- - L : Linux
- - A : Apache
- - M : MySQL
- - P : PHP
-
-## Dependencies
-
-For developing the front-end and back-end of the website, few frameworks and API’s are made use of. Instead of installing a package manager to use the frameworks, the CDN’s of these frameworks are included, which are placed in the header tag of the HTML document.
-
-<table>
-  <tr>
-    <th>Dependencies</th>
-    <th>Use</th>
-  </tr>
-  <tr>
-    <td>Bootstrap</td>
-    <td>Front-end toolkit for front-end development</td>
-  </tr>
-  <tr>
-    <td>jQuery</td>
-    <td>JavaScript Library for simpler Javascript coding</td>
-  </tr>
-  <tr>
-    <td>Chart.js</td>
-    <td>JavaScript charting library for creating graphs and charts</td>
-  </tr>
-  <tr>
-    <td>Datatables</td>
-    <td>Plug-in for the jQuery Javascript library to build advanced tables</td>
-  </tr>
-  <tr>
-    <td>Leaflet</td>
-    <td>JavaScript library for mobile-friendly interactive maps</td>
-  </tr>
-</table>
-
 # Design and Implementation
 
 ## RTOS Implementation
@@ -312,80 +231,6 @@ A queue has following API’s in FreeRTOS which are implemented in the applicati
 - `xQueueCreate()` : Create a queue.
 - `xQueueSend()` : Send data through the queue.
 - `xQueueRecieve()` : Receive data from the queue.
-
-## Server Implementation
-
-The website for this project is deployed on a Virtual Private Server(VPS) provided by the vendor Digital Ocean.
-
-After signing up for a VPS, Digital ocean provides a virtual machine with an IP address which is used to deploy the website and make it accessible to everyone. Digital Ocean calls one of these machines as **‘droplet’**.
-
-The VPS used for the project has following specification,
-
-- Operating System : Ubuntu 22.04 (LTS) x64
-- CPU Cores : 1
-- RAM : 1GB
-- Disk Space : 25 GB
-
-### Installing the LAMP Stack on the Server using Terminal
-
-Detailed step by step instructions are provided by Digital Ocean
-
-- Installing LAMP on Ubuntu 22.04 - [Digital Ocean]( https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04)
-- Installing phpMyAdmin on Ubuntu 22.04 - [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-22-04)
-
-### Working of LAMP Stack on server
-
-<p align="center">
-	<img src="https://github.com/parikshitpagare/smart-home-automation-rtos/assets/80714882/cd99a79f-b177-4c20-a9b1-0cae6c507a74" width="65%" height="65%">
-</p>
-
-## Implementation of MySQL using PHP and phpMyAdmin
-
-When a successful request is made to the web server by the GSM module, the incoming data is stored in the MySQL database. 
-
-To interact with the database an extension of the MySQL API called **MySQLi (MySQL Improved)** is used in the code, which is part of the PHP package.
-
-### Database Structure
-
-- Using the phpMyAdmin interface, a new database is created named ‘tracking-system’. 
-- Inside the database, 3 tables are created each for location, temperature and vibration named **‘tbl_gps’**,**‘tbl_temp’**, **‘tbl_vib’** respectively.
-
-The structure can been seen as follows,
-
-<p align="center">
-	<img src="https://github.com/parikshitpagare/smart-home-automation-rtos/assets/80714882/4fb9dfe5-fb91-4443-bb17-0186dba6c30f" width="80%" height="80%">
-</p>
-
-### Connecting to MySQL Database
-
-While installing the MySQL package, a password is set in the terminal to secure the database.
-
-So now, for connecting to the database we need to enter the `servername`, `username`, `password` and `database` name.
-
-The connection to the database is made using the API `mysqli_connect()` which accepts the above 4 parameters,
-
-```php
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "***********";
-$database = "tracking-system";
-
-/* Connecting to the database */
-$conn = mysqli_connect($servername, $username, $password, $database);
-?>
-```
-
-##  Implementation of Dynamic Website on Client-Side
-
-The data is updated dynamically in the database using PHP and MySQL. All the back-end process is done on the server which is called server-side processing.
-
-The issue with the front-end is that all the updated data cannot be viewed by the user on the website without continuously reloading the entire page which is not a user-friendly approach. 
-
-To tackle this issue, two ways are implemented on the client side using JavaScript which can update all the data on the website without any need for refreshing the page.
-
-- AJAX
-- Fetch API
 
 # Integration & Working of Sensors
 
@@ -661,10 +506,4 @@ developed to display all the data stored in the database in the form of advanced
 	<img src="https://github.com/parikshitpagare/smart-home-automation-rtos/assets/80714882/6d787750-e139-41ac-8b8f-9b214742b9db" width="90%" height="90%">
 </p>
 
-## Creator
 
-**Parikshit Pagare**
-
-<a href="https://linkedin.com/in/parikshitpagare"><img src="https://img.shields.io/badge/Linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white.svg"/></a>
-<a href="https://youtube.com/@parikshitpagare"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=YouTube&logoColor=white.svg"/></a>
-<a href="https://www.reddit.com/user/parikshitpagare"><img src="https://img.shields.io/badge/Reddit-DBDBDB?style=for-the-badge&logo=reddit&logoColor=white.svg"/></a>
